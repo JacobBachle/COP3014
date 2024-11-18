@@ -29,50 +29,65 @@ void placeShipsPlayer1 () {
 }
 
 void printPlayer1Board() {
-    // Prints the appropriate symbol according to each int element.
-    for(int i = 0; i < BOARD_SIZE; i ++) {
-        for(int j = 0; j < BOARD_SIZE; j ++) {
-            if(boardPlayer1[i][j] == 0) {
-                cout << " " << "_";
+    // Print column labels (1, 2, 3, etc.)
+    cout << "    "; // Extra space for row label alignment
+    for (int j = 0; j < BOARD_SIZE; j++) {
+        cout << " " << j + 1; // Labels columns with numbers (1, 2, 3, ...)
+    }
+    cout << endl;
+
+    // Prints the appropriate symbol according to each int element and row labels
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        cout << i + 1 << " "; // Row label (1, 2, 3, ...)
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (boardPlayer1[i][j] == 0) {
+                cout << " " << "_"; // Empty spot
             }
             else if (boardPlayer1[i][j] == 1) {
-                cout << " "  << "*";
+                cout << " " << "*"; // Ship
             }
             else if (boardPlayer1[i][j] == 2) {
-                cout << " " << "o";
+                cout << " " << "o"; // Hit
             }
             else if (boardPlayer1[i][j] == 3) {
-                cout << " " << "x";
+                cout << " " << "x"; // Miss
             }
-            }
-          cout << endl;
         }
+        cout << endl; // New line after each row
     }
+}
 
 void placeShipsPlayer2 () {
     //
 }
 
 void printPlayer2Board() {
-        // Prints the appropriate symbol according to each int element - Anthony.
-    for(int i = 0; i < BOARD_SIZE; i ++) {
-        for(int j = 0; j < BOARD_SIZE; j ++) {
-            if(boardPlayer2[i][j] == 0) {
-                cout << " " << "_";
+    // Print column labels (1, 2, 3, etc.)
+    for (int j = 0; j < BOARD_SIZE; j++) {
+        cout << " " << j + 1; // Labels columns with numbers (1, 2, 3, ...)
+    }
+    cout << endl;
+
+    // Print the rows with labels (1, 2, 3, etc.)
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        cout << i + 1 << " "; // Row label (1, 2, 3, ...)
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (boardPlayer2[i][j] == 0) {
+                cout << " " << "_";  // Empty spot
             }
             else if (boardPlayer2[i][j] == 1) {
-                cout << " "  << "*";
+                cout << " " << "*";  // Ship
             }
             else if (boardPlayer2[i][j] == 2) {
-                cout << " " << "o";
+                cout << " " << "o";  // Hit
             }
             else if (boardPlayer2[i][j] == 3) {
-                cout << " " << "x";
+                cout << " " << "x";  // Miss
             }
-            }
-          cout << endl;
         }
+        cout << endl; // New line after each row
     }
+}
 
 bool isBoardWin(int board[BOARD_SIZE][BOARD_SIZE]) {
     //Board is a winning board if no occupied elements are left, note occupied elemts are have a value of 1
