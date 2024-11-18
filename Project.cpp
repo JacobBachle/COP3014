@@ -29,16 +29,50 @@ void placeShipsPlayer1 () {
 }
 
 void printPlayer1Board() {
-    //
-}
+    // Prints the appropriate symbol according to each int element.
+    for(int i = 0; i < BOARD_SIZE; i ++) {
+        for(int j = 0; j < BOARD_SIZE; j ++) {
+            if(boardPlayer1[i][j] == 0) {
+                cout << " " << "_";
+            }
+            else if (boardPlayer1[i][j] == 1) {
+                cout << " "  << "*";
+            }
+            else if (boardPlayer1[i][j] == 2) {
+                cout << " " << "o";
+            }
+            else if (boardPlayer1[i][j] == 3) {
+                cout << " " << "x";
+            }
+            }
+          cout << endl;
+        }
+    }
 
 void placeShipsPlayer2 () {
     //
 }
 
 void printPlayer2Board() {
-    //
-}
+        // Prints the appropriate symbol according to each int element - Anthony.
+    for(int i = 0; i < BOARD_SIZE; i ++) {
+        for(int j = 0; j < BOARD_SIZE; j ++) {
+            if(boardPlayer2[i][j] == 0) {
+                cout << " " << "_";
+            }
+            else if (boardPlayer2[i][j] == 1) {
+                cout << " "  << "*";
+            }
+            else if (boardPlayer2[i][j] == 2) {
+                cout << " " << "o";
+            }
+            else if (boardPlayer2[i][j] == 3) {
+                cout << " " << "x";
+            }
+            }
+          cout << endl;
+        }
+    }
 
 bool isBoardWin(int board[BOARD_SIZE][BOARD_SIZE]) {
     //Board is a winning board if no occupied elements are left, note occupied elemts are have a value of 1
