@@ -15,13 +15,6 @@ const int hit = 3; //if board has this as an element, a player choosed to hit a 
 bool gameWin = false;
 int boardPlayer1[BOARD_SIZE][BOARD_SIZE];
 int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
-
-for (int x = 0; x < BOARD_SIZE; x++) {
-    for (int y = 0; y < BOARD_SIZE; y++) {
-        boardPlayer1[x][y] = 0; //initalise every element of player1's board with 0
-        boardPlayer2[x][y] = 0; //initalise every element of player2's board with 0
-    }
-}
 /*
 1 Aircraft Carrier, 5 spots
 1 Battleship, 4 spots
@@ -333,6 +326,13 @@ bool isBoardWin(int board[BOARD_SIZE][BOARD_SIZE]) {
 
 int main() {
     while (gameWin == false) {
+
+        for (int x = 0; x < BOARD_SIZE; x++) {
+            for (int y = 0; y < BOARD_SIZE; y++) {
+                boardPlayer1[x][y] = 0; //initalise every element of player1's board with 0
+                boardPlayer2[x][y] = 0; //initalise every element of player2's board with 0
+            }
+        }    
 
         gameWin = true; //TO BE REMOVED, only present so loop is not infinite
     }
