@@ -16,6 +16,12 @@ bool gameWin = false;
 int boardPlayer1[BOARD_SIZE][BOARD_SIZE];
 int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
 
+for (int x = 0; x < BOARD_SIZE; x++) {
+    for (int y = 0; y < BOARD_SIZE; y++) {
+        boardPlayer1[x][y] = 0; //initalise every element of player1's board with 0
+        boardPlayer2[x][y] = 0; //initalise every element of player2's board with 0
+    }
+}
 /*
 1 Aircraft Carrier, 5 spots
 1 Battleship, 4 spots
@@ -25,86 +31,113 @@ int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
 */
 
 void placeShipsPlayer1 (int boardPlayer1[BOARD_SIZE][BOARD_SIZE]) {
-    int shipsSize = {5,4,3,3,2};
-    int shipsQuantity = {1, 1, 1, 1, 1};
+    int shipsSize = {5,4,3,3,2}; //Change these to change ships to be placed. Each element is one ship.
 
     for (int i = 0; i < shipsQuantity.size(); i++) {
-        int currShipsSize = shipsSize[i];
-        bool placed = false;
+        int currShipsSize = shipsSize[i]; //Iterated for each element in shipsSize and sets currShipsSize to the current element in the array of ships to be placed.
+        bool placed = false; //Will be false until the currShip is placed on players board
 
         while (!placed) {
             cout << "Place ship with size " << shipsSize[i] << endl;
             cout << "Enter starting row and column. Input should be (0 - " << BOARD_SIZE << "): ";
             int currRow;
             int currCol;
-            cin >> row >> col;
+            cin >> row >> col; //input starting row and col
+            cout << endl;
 
             cout << "Enter orientation (0 for up, 1 for right, 2 for down, 3 for left) ";
             int orientation;
             cin >> orientation;
+            cout << endl;
 
-            bool valid = false;
-            while (valid == false) {
-                if (orientation == 0) {
-                    if ((currRow - currShipsSize) > 0) {
-                        valid = true;
+            bool valid = true;
+            /*
+            Checks if the row or col will go out of bounds because of the orientation.
+            Then checks if there is already a 1 (ship placed) at the element expected to be placed.
+            */
+            if (orientation == 0) {
+                if ((currRow - currShipsSize) < 0) {
+                    valid = false;
+                }
+                else {
+                    for (int i = currRow; i > currRow - currShipsSize; i--) {
+                        if (boardPlayer1[i][currCol] == 1) {
+                            valid = false;
+                            break;
+                        }
                     }
                 }
-                else if (orientation == 1) {
-                    if ((currCol + currShipsSize) < BOARD_SIZE) {
-                        valid = true;
+            }
+            else if (orientation == 1) {
+                if ((currCol + currShipsSize) > BOARD_SIZE) {
+                    valid = false;
+                }
+                else {
+                    for (int j = currCol; j < currCol + currShipsSize; j++) {
+                        if (boardPlayer1[currRow][j] == 1) {
+                            valid = false;
+                            break;
+                        }
                     }
                 }
-                else if (orientation == 2) {
-                    if ((currRow + currShipsSize) < BOARD_SIZE) {
-                        valid = true;
+            }
+            else if (orientation == 2) {
+                if ((currRow + currShipsSize) > BOARD_SIZE) {
+                    valid = false;
+                }
+                else {
+                    for (int i = currRow; i < currRow + currShipsSize; i++) {
+                        if (boardPlayer1[i][currCol] == 1) {
+                            valid = false;
+                            break;
+                        }
                     }
                 }
-                else if (orientation == 3) {
-                    if ((currCol - currShipsSize) > 0) {
-                        valid = true;
+            }
+            else if (orientation == 3) {
+                if ((currCol - currShipsSize) < 0) {
+                    valid = false;
+                }
+                else {
+                    for (int j = currCol; j > currCol - currShipsSize; j--) {
+                        if (boardPlayer1[currRow][j] == 1) {
+                            valid = false;
+                            break;
+                        }
                     }
                 }
+            }
 
-                if (!valid) {
-                    cout << "Input goes out of bound. Would you like to change the orientation (input 1) or change the starting row and column (input 2): ";
-                    int change;
-                    cin >> change;
-                    if (change == 1) {
-                        cout << "Input new orientation (0 for up, 1 for right, 2 for down, 3 for left): "
-                        cin >> orientation;
-                    }
-                    if (change == 2) {
-                        cout << "Input new starting row and column (row column): "
-                        cin >> currRow;
-                        cin >> currCol;
-                    }
-                    if ((change != 1) && (change != 2)) {
-                        cout << "Please input either 1 or 2"
-                        cin >> change;
-                    }
-                }
-                //If reached this point it is assumed that there is a currRow, currCol, and orientation that is valid for the ship size
+            if (valid) {// If current ship can be placed, sets the corrosponding element to 1 according to row, col, and orientation
                 if (orientation == 0) {
                     for (int i = currRow; i > currRow - currShipsSize; i--) {
                         boardPlayer1[i][currCol] = 1;
                     }
+                    placed = true;
                 }
                 if (orientation == 1) {
                     for (int j = currCol; j < currCol + currShipsSize; j++) {
                         boardPlayer1[currRow][j] = 1;
                     }
+                    placed = true;
                 }
                 if (orientation == 2) {
                     for (int i = currRow; i < currRow + currShipsSize; i++) {
                         boardPlayer1[i][currCol] = 1;
                     }
+                    placed = true;
                 }
                 if (orientation == 3) {
                     for (int j = currCol; j > currCol - currShipsSize; j--) {
                         boardPlayer1[currRow][j] = 1;
                     }
+                    placed = true;
                 }
+                cout << "Ships placed sucessfully" << endl;
+                printPlayer1Board(boardPlayer1);
+            }
+            else { //if placed is not true at the point, position or orientaiton is invalid, looped to the start.
+                cout << "Invalid position" << endl; 
             }
             
 
@@ -141,8 +174,116 @@ void printPlayer1Board() {
     }
 }
 
-void placeShipsPlayer2 () {
-    //
+void placeShipsPlayer2 (int boardPlayer2[BOARD_SIZE][BOARD_SIZE]) {
+    int shipsSize = {5,4,3,3,2};
+    int shipsQuantity = {1, 1, 1, 1, 1};
+
+    for (int i = 0; i < shipsQuantity.size(); i++) {
+        int currShipsSize = shipsSize[i];
+        bool placed = false;
+
+        while (!placed) {
+            cout << "Place ship with size " << shipsSize[i] << endl;
+            cout << "Enter starting row and column. Input should be (0 - " << BOARD_SIZE << "): ";
+            int currRow;
+            int currCol;
+            cin >> row >> col;
+            cout << endl;
+
+            cout << "Enter orientation (0 for up, 1 for right, 2 for down, 3 for left) ";
+            int orientation;
+            cin >> orientation;
+            cout << endl;
+
+            bool valid = true;
+            if (orientation == 0) {
+                if ((currRow - currShipsSize) < 0) {
+                    valid = false;
+                }
+                else {
+                    for (int i = currRow; i > currRow - currShipsSize; i--) {
+                        if (boardPlayer2[i][currCol] == 1) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (orientation == 1) {
+                if ((currCol + currShipsSize) > BOARD_SIZE) {
+                    valid = false;
+                }
+                else {
+                    for (int j = currCol; j < currCol + currShipsSize; j++) {
+                        if (boardPlayer2[currRow][j] == 1) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (orientation == 2) {
+                if ((currRow + currShipsSize) > BOARD_SIZE) {
+                    valid = false;
+                }
+                else {
+                    for (int i = currRow; i < currRow + currShipsSize; i++) {
+                        if (boardPlayer2[i][currCol] == 1) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (orientation == 3) {
+                if ((currCol - currShipsSize) < 0) {
+                    valid = false;
+                }
+                else {
+                    for (int j = currCol; j > currCol - currShipsSize; j--) {
+                        if (boardPlayer2[currRow][j] == 1) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (valid) {
+                if (orientation == 0) {
+                    for (int i = currRow; i > currRow - currShipsSize; i--) {
+                        boardPlayer2[i][currCol] = 1;
+                    }
+                    placed = true;
+                }
+                if (orientation == 1) {
+                    for (int j = currCol; j < currCol + currShipsSize; j++) {
+                        boardPlayer2[currRow][j] = 1;
+                    }
+                    placed = true;
+                }
+                if (orientation == 2) {
+                    for (int i = currRow; i < currRow + currShipsSize; i++) {
+                        boardPlayer2[i][currCol] = 1;
+                    }
+                    placed = true;
+                }
+                if (orientation == 3) {
+                    for (int j = currCol; j > currCol - currShipsSize; j--) {
+                        boardPlayer2[currRow][j] = 1;
+                    }
+                    placed = true;
+                }
+                cout << "Ships placed sucessfully" << endl;
+                printPlayer1Board(boardPlayer2);
+            }
+            else {
+                cout << "Invalid position" << endl;
+            }
+            
+
+        }
+    }
 }
 
 void printPlayer2Board() {
