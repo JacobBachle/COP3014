@@ -134,7 +134,7 @@ void placeShipsPlayer1 (int boardPlayer1[BOARD_SIZE][BOARD_SIZE]) {
                     placed = true;
                 }
                 cout << "Ships placed sucessfully" << endl;
-                printPlayer1Board(boardPlayer1);
+                printPlayer1Board();
             }
             else { //if placed is not true at the point, position or orientaiton is invalid, looped to the start.
                 cout << "Invalid position" << endl; 
@@ -275,7 +275,7 @@ void placeShipsPlayer2 (int boardPlayer2[BOARD_SIZE][BOARD_SIZE]) {
                     placed = true;
                 }
                 cout << "Ships placed sucessfully" << endl;
-                printPlayer1Board(boardPlayer2);
+                printPlayer1Board();
             }
             else {
                 cout << "Invalid position" << endl;
