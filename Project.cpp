@@ -24,9 +24,9 @@ int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
 */
 
 void placeShipsPlayer1 (int boardPlayer1[BOARD_SIZE][BOARD_SIZE]) {
-    int shipsSize = {5,4,3,3,2}; //Change these to change ships to be placed. Each element is one ship.
+    int shipsSize[] = {5,4,3,3,2}; //Change these to change ships to be placed. Each element is one ship.
 
-    for (int i = 0; i < shipsQuantity.size(); i++) {
+    for (int i = 0; i < 5; i++) {
         int currShipsSize = shipsSize[i]; //Iterated for each element in shipsSize and sets currShipsSize to the current element in the array of ships to be placed.
         bool placed = false; //Will be false until the currShip is placed on players board
 
@@ -34,7 +34,7 @@ void placeShipsPlayer1 (int boardPlayer1[BOARD_SIZE][BOARD_SIZE]) {
             cout << "Place ship with size " << shipsSize[i] << endl;
             cout << "Enter starting row. Input should be (0 - " << BOARD_SIZE << "): ";
             int currRow;
-            cin >> currRow
+            cin >> currRow;
             cout << endl;
             cout << "Enter starting column. Input should be (0 - " << BOARD_SIZE << "): ";
             int currCol;
@@ -171,10 +171,9 @@ void printPlayer1Board() {
 }
 
 void placeShipsPlayer2 (int boardPlayer2[BOARD_SIZE][BOARD_SIZE]) {
-    int shipsSize = {5,4,3,3,2};
-    int shipsQuantity = {1, 1, 1, 1, 1};
+    int shipsSize[] = {5,4,3,3,2};
 
-    for (int i = 0; i < shipsQuantity.size(); i++) {
+    for (int i = 0; i < 5; i++) {
         int currShipsSize = shipsSize[i];
         bool placed = false;
 
@@ -182,7 +181,7 @@ void placeShipsPlayer2 (int boardPlayer2[BOARD_SIZE][BOARD_SIZE]) {
             cout << "Place ship with size " << shipsSize[i] << endl;
             cout << "Enter starting row. Input should be (0 - " << BOARD_SIZE << "): ";
             int currRow;
-            cin >> currRow
+            cin >> currRow;
             cout << endl;
             cout << "Enter starting column. Input should be (0 - " << BOARD_SIZE << "): ";
             int currCol;
