@@ -39,8 +39,10 @@ void placeShipsPlayer1 (int boardPlayer1[BOARD_SIZE][BOARD_SIZE]) {
 
         while (!placed) {
             cout << "Place ship with size " << shipsSize[i] << endl;
-            cout << "Enter starting row and column. Input should be (0 - " << BOARD_SIZE << "): ";
+            cout << "Enter starting row. Input should be (0 - " << BOARD_SIZE << "): ";
             int currRow;
+            cout << endl;
+            cout << "Enter starting column. Input should be (0 - " << BOARD_SIZE << "): ";
             int currCol;
             cin >> row >> col; //input starting row and col
             cout << endl;
