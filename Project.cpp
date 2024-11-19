@@ -23,6 +23,35 @@ int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
 1 Patrol Boat, 2 spots
 */
 
+void printPlayer1Board() {
+    // Print column labels (1, 2, 3, etc.)
+    cout << "    "; // Extra space for row label alignment
+    for (int j = 0; j < BOARD_SIZE; j++) {
+        cout << " " << j + 1; // Labels columns with numbers (1, 2, 3, ...)
+    }
+    cout << endl;
+
+    // Prints the appropriate symbol according to each int element and row labels
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        cout << i + 1 << " "; // Row label (1, 2, 3, ...)
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (boardPlayer1[i][j] == 0) {
+                cout << " " << "_"; // Empty spot
+            }
+            else if (boardPlayer1[i][j] == 1) {
+                cout << " " << "*"; // Ship
+            }
+            else if (boardPlayer1[i][j] == 2) {
+                cout << " " << "o"; // Hit
+            }
+            else if (boardPlayer1[i][j] == 3) {
+                cout << " " << "x"; // Miss
+            }
+        }
+        cout << endl; // New line after each row
+    }
+}
+
 void placeShipsPlayer1 (int boardPlayer1[BOARD_SIZE][BOARD_SIZE]) {
     int shipsSize[] = {5,4,3,3,2}; //Change these to change ships to be placed. Each element is one ship.
 
@@ -141,29 +170,28 @@ void placeShipsPlayer1 (int boardPlayer1[BOARD_SIZE][BOARD_SIZE]) {
     }
 }
 
-void printPlayer1Board() {
+void printPlayer2Board() {
     // Print column labels (1, 2, 3, etc.)
-    cout << "    "; // Extra space for row label alignment
     for (int j = 0; j < BOARD_SIZE; j++) {
         cout << " " << j + 1; // Labels columns with numbers (1, 2, 3, ...)
     }
     cout << endl;
 
-    // Prints the appropriate symbol according to each int element and row labels
+    // Print the rows with labels (1, 2, 3, etc.)
     for (int i = 0; i < BOARD_SIZE; i++) {
         cout << i + 1 << " "; // Row label (1, 2, 3, ...)
         for (int j = 0; j < BOARD_SIZE; j++) {
-            if (boardPlayer1[i][j] == 0) {
-                cout << " " << "_"; // Empty spot
+            if (boardPlayer2[i][j] == 0) {
+                cout << " " << "_";  // Empty spot
             }
-            else if (boardPlayer1[i][j] == 1) {
-                cout << " " << "*"; // Ship
+            else if (boardPlayer2[i][j] == 1) {
+                cout << " " << "*";  // Ship
             }
-            else if (boardPlayer1[i][j] == 2) {
-                cout << " " << "o"; // Hit
+            else if (boardPlayer2[i][j] == 2) {
+                cout << " " << "o";  // Hit
             }
-            else if (boardPlayer1[i][j] == 3) {
-                cout << " " << "x"; // Miss
+            else if (boardPlayer2[i][j] == 3) {
+                cout << " " << "x";  // Miss
             }
         }
         cout << endl; // New line after each row
@@ -281,34 +309,6 @@ void placeShipsPlayer2 (int boardPlayer2[BOARD_SIZE][BOARD_SIZE]) {
             
 
         }
-    }
-}
-
-void printPlayer2Board() {
-    // Print column labels (1, 2, 3, etc.)
-    for (int j = 0; j < BOARD_SIZE; j++) {
-        cout << " " << j + 1; // Labels columns with numbers (1, 2, 3, ...)
-    }
-    cout << endl;
-
-    // Print the rows with labels (1, 2, 3, etc.)
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        cout << i + 1 << " "; // Row label (1, 2, 3, ...)
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            if (boardPlayer2[i][j] == 0) {
-                cout << " " << "_";  // Empty spot
-            }
-            else if (boardPlayer2[i][j] == 1) {
-                cout << " " << "*";  // Ship
-            }
-            else if (boardPlayer2[i][j] == 2) {
-                cout << " " << "o";  // Hit
-            }
-            else if (boardPlayer2[i][j] == 3) {
-                cout << " " << "x";  // Miss
-            }
-        }
-        cout << endl; // New line after each row
     }
 }
 
