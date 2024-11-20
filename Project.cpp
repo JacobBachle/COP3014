@@ -25,7 +25,7 @@ int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
 
 void printPlayer1Board() {
     // Print column labels (1, 2, 3, etc.)
-    cout << "    "; // Extra space for row label alignment
+    cout << " "; // Extra space for row label alignment
     for (int j = 0; j < BOARD_SIZE; j++) {
         cout << " " << j + 1; // Labels columns with numbers (1, 2, 3, ...)
     }
