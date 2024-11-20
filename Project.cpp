@@ -52,7 +52,7 @@ void printPlayer1Board() {
     }
 }
 
-void placeShipsPlayer1 (int boardPlayer1[BOARD_SIZE][BOARD_SIZE]) {
+void placeShipsPlayer1 () {
     int shipsSize[] = {5,4,3,3,2}; //Change these to change ships to be placed. Each element is one ship.
 
     for (int i = 0; i < 5; i++) {
@@ -198,7 +198,7 @@ void printPlayer2Board() {
     }
 }
 
-void placeShipsPlayer2 (int boardPlayer2[BOARD_SIZE][BOARD_SIZE]) {
+void placeShipsPlayer2 () {
     int shipsSize[] = {5,4,3,3,2};
 
     for (int i = 0; i < 5; i++) {
