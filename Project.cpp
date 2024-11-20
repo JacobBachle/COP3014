@@ -301,7 +301,7 @@ void placeShipsPlayer2 (int boardPlayer2[BOARD_SIZE][BOARD_SIZE]) {
                     placed = true;
                 }
                 cout << "Ships placed sucessfully" << endl;
-                printPlayer1Board();
+                printPlayer2Board();
             }
             else {
                 cout << "Invalid position" << endl;
