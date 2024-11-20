@@ -42,10 +42,10 @@ void printPlayer1Board() {
                 cout << " " << "*"; // Ship
             }
             else if (boardPlayer1[i][j] == 2) {
-                cout << " " << "x"; // Hit
+                cout << " " << "o"; // Miss
             }
             else if (boardPlayer1[i][j] == 3) {
-                cout << " " << "o"; // Miss
+                cout << " " << "x"; // Hit
             }
         }
         cout << endl; // New line after each row
@@ -188,10 +188,10 @@ void printPlayer2Board() {
                 cout << " " << "*";  // Ship
             }
             else if (boardPlayer2[i][j] == 2) {
-                cout << " " << "x";  // Hit
+                cout << " " << "o";  // Miss
             }
             else if (boardPlayer2[i][j] == 3) {
-                cout << " " << "o";  // Miss
+                cout << " " << "x";  // Hit
             }
         }
         cout << endl; // New line after each row
