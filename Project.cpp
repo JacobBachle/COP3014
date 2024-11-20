@@ -25,15 +25,15 @@ int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
 
 void printPlayer1Board() {
     // Print column labels (1, 2, 3, etc.)
-    cout << " "; // Extra space for row label alignment
+    cout << "  ";
     for (int j = 0; j < BOARD_SIZE; j++) {
-        cout << " " << j + 1; // Labels columns with numbers (1, 2, 3, ...)
+        cout << " " << j; // Labels columns with numbers (1, 2, 3, ...)
     }
     cout << endl;
 
     // Prints the appropriate symbol according to each int element and row labels
     for (int i = 0; i < BOARD_SIZE; i++) {
-        cout << i + 1 << " "; // Row label (1, 2, 3, ...)
+        cout << i << " "; // Row label (1, 2, 3, ...)
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (boardPlayer1[i][j] == 0) {
                 cout << " " << "_"; // Empty spot
@@ -172,14 +172,15 @@ void placeShipsPlayer1 () {
 
 void printPlayer2Board() {
     // Print column labels (1, 2, 3, etc.)
+    cout << "  ";
     for (int j = 0; j < BOARD_SIZE; j++) {
-        cout << " " << j + 1; // Labels columns with numbers (1, 2, 3, ...)
+        cout << " " << j; // Labels columns with numbers (1, 2, 3, ...)
     }
     cout << endl;
 
     // Print the rows with labels (1, 2, 3, etc.)
     for (int i = 0; i < BOARD_SIZE; i++) {
-        cout << i + 1 << " "; // Row label (1, 2, 3, ...)
+        cout << i << " "; // Row label (1, 2, 3, ...)
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (boardPlayer2[i][j] == 0) {
                 cout << " " << "_";  // Empty spot
@@ -335,6 +336,9 @@ int main() {
                 boardPlayer2[x][y] = 0; //initalise every element of player2's board with 0
             }
         }    
+
+        printPlayer1Board();
+        placeShipsPlayer1();
 
         gameWin = true; //TO BE REMOVED, only present so loop is not infinite
     }
