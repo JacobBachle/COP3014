@@ -105,7 +105,7 @@ void placeShipsPlayer (int (&boardPlayer)[10][10]) {
             cin >> currCol; //input starting row and col
             cout << endl;
 
-            cout << "Enter orientation (0 for up, 1 for right, 2 for down, 3 for left) ";
+            cout << "Enter orientation (0 for up, 1 for right, 2 for down, 3 for left): ";
             int orientation;
             cin >> orientation;
             cout << endl;
@@ -211,13 +211,15 @@ void placeShipsPlayer (int (&boardPlayer)[10][10]) {
 }
 
 void PrintWhitespace()  {
-    cout << "\n\n\n\n\n\n\n\n\n\n";
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
 
 void Player1Turn()  { //player 1 takes their turn
 int turnRow;    // get row coordinate for player 2 board from input
 int turnColumn; // get column coordinate for player 2 board from input 
+
+    cout << "Player 1's turn" << endl;
     cout << "Your board:"  << endl;
        printPlayerBoard(boardPlayer1); //prints player 1 board
 
@@ -258,13 +260,13 @@ int turnColumn; // get column coordinate for player 2 board from input
     }
 
     PrintWhitespace(); //print newlines so player 2 doesn't see player 2's board 
-
-    cout << "Player 2's turn" << endl;
 }
 
 void Player2Turn()  { //player 2 takes their turn
 int turnRow;    //get row coordinate for player 1 board from input
 int turnColumn; //get column coordinate for player 1 board from input
+
+    cout << "Player 2's turn" << endl;
     cout << "Your board:"  << endl;
        printPlayerBoard(boardPlayer2); //prints player 2 board
 
@@ -307,8 +309,6 @@ int turnColumn; //get column coordinate for player 1 board from input
 
 
     PrintWhitespace(); //print new lines so player 2 doesn't see player 2's board
-
-    cout << "Player 1's turn" << endl;
 }
 
 
@@ -339,11 +339,11 @@ int main() {
 
     printPlayerBoard(boardPlayer1);
     placeShipsPlayer(boardPlayer1);
-
     PrintWhitespace();
 
     printPlayerBoard(boardPlayer2);
     placeShipsPlayer(boardPlayer2);
+    PrintWhitespace();
 
     while (gameWin == false) {
 
