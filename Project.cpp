@@ -219,7 +219,7 @@ void PlayerTurn(int (&playerBoard)[BOARD_SIZE][BOARD_SIZE], int (&opponentBoard)
     cout << "\n" << playerName << "'s Turn\n";
     cout << "------------------------------" << endl;
     cout << "Your board:" << endl;
-    printPlayerBoard(playerBoard);
+    printPlayerBoardCensored(playerBoard);
 
     cout << opponentName << "'s board:" << endl;
     printPlayerBoardCensored(opponentBoard);
