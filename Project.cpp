@@ -23,6 +23,8 @@ int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
 1 Patrol Boat, 2 spots
 */
 
+
+
 void printPlayerBoard(int (&boardPlayer)[10][10]) {
     // Print column labels (1, 2, 3, etc.)
     cout << "   "; // Spacing to align with the board
@@ -54,6 +56,37 @@ void printPlayerBoard(int (&boardPlayer)[10][10]) {
     cout << endl;
 }
 
+void printPlayerBoardCensored(int (&boardPlayer)[BOARD_SIZE][BOARD_SIZE]) {
+     // Print column labels (1, 2, 3, etc.)
+    cout << "   "; // Spacing to align with the board
+    for (int j = 0; j < BOARD_SIZE; j++) {
+        cout << " " << j << "  "; // Labels columns with numbers (1, 2, 3, ...)
+    }
+    cout << endl;
+    cout << "  " << "_________________________________________" << endl;
+
+    // Prints the appropriate symbol according to each int element and row labels
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        cout << i << "|"<< " "; // Row label (0, 1, 2, ...)
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (boardPlayer[i][j] == 0) {
+                cout << " - " << "|"; // Empty spot
+            }
+            else if (boardPlayer[i][j] == 1) {
+                cout << " - " << "|"; // Ship (hidden)
+            }
+            else if (boardPlayer[i][j] == 2) {
+                cout << " o " << "|"; // Miss
+            }
+            else if (boardPlayer[i][j] == 3) {
+                cout  << " x " << "|"; // Hit
+            }
+        }
+        cout << endl; // New line after each row
+    }
+    cout << endl;
+}
+
 void placeShipsPlayer (int (&boardPlayer)[10][10]) {
     int shipsSize[] = {5,4,3,3,2}; //Change these to change ships to be placed. Each element is one ship.
 
@@ -63,11 +96,11 @@ void placeShipsPlayer (int (&boardPlayer)[10][10]) {
 
         while (!placed) {
             cout << "Place ship with size " << shipsSize[i] << endl;
-            cout << "Enter starting row. Input should be (0 - " << BOARD_SIZE << "): ";
+            cout << "Enter starting row. Input should be (0 - " << BOARD_SIZE - 1 << "): ";
             int currRow;
             cin >> currRow;
             cout << endl;
-            cout << "Enter starting column. Input should be (0 - " << BOARD_SIZE << "): ";
+            cout << "Enter starting column. Input should be (0 - " << BOARD_SIZE - 1 << "): ";
             int currCol;
             cin >> currCol; //input starting row and col
             cout << endl;
@@ -76,7 +109,6 @@ void placeShipsPlayer (int (&boardPlayer)[10][10]) {
             int orientation;
             cin >> orientation;
             cout << endl;
-
             bool valid = true;
             /*
             Checks if the row or col will go out of bounds because of the orientation.
@@ -134,6 +166,12 @@ void placeShipsPlayer (int (&boardPlayer)[10][10]) {
                     }
                 }
             }
+            else {
+                valid = false;
+                cout << "Invalid orientation. Please enter a new orientation (0 for up, 1 for right, 2 for down, 3 for left): ";
+                cin >> orientation;
+                cout << endl;
+            }
 
             if (valid) {// If current ship can be placed, sets the corrosponding element to 1 according to row, col, and orientation
                 if (orientation == 0) {
@@ -172,6 +210,108 @@ void placeShipsPlayer (int (&boardPlayer)[10][10]) {
     }
 }
 
+void PrintWhitespace()  {
+    cout << "\n\n\n\n\n\n\n\n\n\n";
+}
+
+
+void Player1Turn()  { //player 1 takes their turn
+int turnRow;    // get row coordinate for player 2 board from input
+int turnColumn; // get column coordinate for player 2 board from input 
+    cout << "Your board:"  << endl;
+       printPlayerBoard(boardPlayer1); //prints player 1 board
+
+    cout << "Opponent's board:" << endl;
+       printPlayerBoardCensored(boardPlayer2); //prints player 2 board but only shows player 1 previous turns
+
+    cout << "Enter row number 0 - 9: ";
+    cin >> turnRow;
+
+    cout << endl << "Enter column number 0 - 9: ";
+    cin >> turnColumn;
+    cout << endl;
+
+    if (boardPlayer2[turnRow][turnColumn] == missed || boardPlayer2[turnRow][turnColumn] == hit)  {
+        cout << "You've already tried that. Enter a new set of coordinates." << endl;
+        cout << "Enter row number 0 - 9: ";
+        cin >> turnRow;
+        cout << endl << "Enter column number 0 - 9: ";
+        cin >> turnColumn;
+        cout << endl;
+    // prompts player 1 to enter new coordinates if they tried the same coordinates as a previous turn
+    }
+    else if (turnColumn < 0 || turnColumn > 9 || turnRow < 0 || turnRow > 9)  {
+        cout << "Invalid input.\n" << "Enter row number 0 - 9: ";
+        cin >> turnRow;
+        cout << endl << "Enter column number 0 - 9: ";
+        cin >> turnColumn;
+        cout << endl;
+    // prompts player 1 to enter new coordinates if they went outside of the board
+    }
+    else if (boardPlayer2[turnRow][turnColumn] == occupied)  {
+        cout << "You hit Player 2's ship!" << endl;
+        boardPlayer2[turnRow][turnColumn] = hit; //update opponent's board
+    }
+    else if (boardPlayer2[turnRow][turnColumn] == empty)  {
+        cout << "You missed!" << endl;
+        boardPlayer2[turnRow][turnColumn] = missed; //update opponent's board
+    }
+
+    PrintWhitespace(); //print newlines so player 2 doesn't see player 2's board 
+
+    cout << "Player 2's turn" << endl;
+}
+
+void Player2Turn()  { //player 2 takes their turn
+int turnRow;    //get row coordinate for player 1 board from input
+int turnColumn; //get column coordinate for player 1 board from input
+    cout << "Your board:"  << endl;
+       printPlayerBoard(boardPlayer2); //prints player 2 board
+
+    cout << "Opponent's board:" << endl;
+       printPlayerBoardCensored(boardPlayer1); //prints player 1 board but only shows player 2 previous turns
+
+
+    cout << "Enter row number 0 - 9: ";
+    cin >> turnRow;
+
+    cout << endl << "Enter column number 0 - 9: ";
+    cin >> turnColumn;
+    cout << endl;
+
+    if (boardPlayer1[turnRow][turnColumn] == missed || boardPlayer1[turnRow][turnColumn] == hit)  {
+        cout << "You've already tried that. Enter a new set of coordinates." << endl;
+        cout << "Enter row number 0 - 9: ";
+        cin >> turnRow;
+        cout << endl << "Enter column number 0 - 9: ";
+        cin >> turnColumn;
+        cout << endl;
+    // prompts player 2 to enter new coordinates if they tried the same coordinates as a previous turn
+    }
+    else if (turnColumn < 0 || turnColumn > 9 || turnRow < 0 || turnRow > 9)  {
+        cout << "Invalid input.\n" << "Enter row number 0 - 9: ";
+        cin >> turnRow;
+        cout << endl << "Enter column number 0 - 9: ";
+        cin >> turnColumn;
+        cout << endl;
+    // prompts player 2 to enter new coordinates if they went outside of the board
+    }
+    else if (boardPlayer1[turnRow][turnColumn] == occupied)  {
+        cout << "You hit Player 2's ship!" << endl;
+        boardPlayer1[turnRow][turnColumn] = hit; //update opponent's board
+    }
+    else if (boardPlayer1[turnRow][turnColumn] == empty)  {
+        cout << "You missed!" << endl;
+        boardPlayer1[turnRow][turnColumn] = missed; //update opponent's board
+    }
+
+
+    PrintWhitespace(); //print new lines so player 2 doesn't see player 2's board
+
+    cout << "Player 1's turn" << endl;
+}
+
+
 
 
 bool isBoardWin(int board[BOARD_SIZE][BOARD_SIZE]) {
@@ -189,22 +329,37 @@ bool isBoardWin(int board[BOARD_SIZE][BOARD_SIZE]) {
 
 
 int main() {
+
+    for (int x = 0; x < BOARD_SIZE; x++) {
+        for (int y = 0; y < BOARD_SIZE; y++) {
+             boardPlayer1[x][y] = 0; //initalise every element of player1's board with 0
+             boardPlayer2[x][y] = 0; //initalise every element of player2's board with 0
+        }
+    }    
+
+    printPlayerBoard(boardPlayer1);
+    placeShipsPlayer(boardPlayer1);
+
+    PrintWhitespace();
+
+    printPlayerBoard(boardPlayer2);
+    placeShipsPlayer(boardPlayer2);
+
     while (gameWin == false) {
 
-        for (int x = 0; x < BOARD_SIZE; x++) {
-            for (int y = 0; y < BOARD_SIZE; y++) {
-                boardPlayer1[x][y] = 0; //initalise every element of player1's board with 0
-                boardPlayer2[x][y] = 0; //initalise every element of player2's board with 0
-            }
-        }    
+        Player1Turn();
+        if (isBoardWin(boardPlayer2)) {
+            gameWin = true;
+            cout << "Player 1 wins!" << endl;
+        }
 
-        printPlayerBoard(boardPlayer1);
-        placeShipsPlayer(boardPlayer1);
+        Player2Turn();
+        if (isBoardWin(boardPlayer1)) {
+            gameWin = true;
+            cout << "Player 2 wins!" << endl;
+        }
 
-        printPlayerBoard(boardPlayer2);
-        placeShipsPlayer(boardPlayer2);
-
-        gameWin = true; //TO BE REMOVED, only present so loop is not infinite
+        //gameWin = true; //TO BE REMOVED, only present so loop is not infinite
     }
     return 0;
 }
