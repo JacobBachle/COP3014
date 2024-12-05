@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
-#include <string>   // For string getValidCoordinate
+#include <string>   // For function getValidCoordinate
 
 using namespace std;
 
@@ -23,7 +23,7 @@ int boardPlayer2[BOARD_SIZE][BOARD_SIZE];
 1 Patrol Boat, 2 spots
 */
 
-void printPlayerBoard(int (&boardPlayer)[10][10]) {
+void printPlayerBoard(int (&boardPlayer)[BOARD_SIZE][BOARD_SIZE]) {
     cout << "   "; // Spacing to align with the board
     for (int j = 0; j < BOARD_SIZE; j++) {
         cout << " " << j << "  "; // Labels columns with numbers (1, 2, 3, ...)
@@ -96,10 +96,10 @@ bool getValidCoordinate(int& coord) {
     }
 }
 
-void placeShipsPlayer (int (&boardPlayer)[10][10]) {
+void placeShipsPlayer (int (&boardPlayer)[BOARD_SIZE][BOARD_SIZE]) {
     int shipsSize[] = {5,4,3,3,2}; //Change these to change ships to be placed. Each element is one ship.
-
-    for (int i = 0; i < 5; i++) {
+    int numShips = sizeof(shipsSize) / sizeof(shipsSize[0]); //shipsSize length calculation
+    for (int i = 0; i < numShips; i++) {
         int currShipsSize = shipsSize[i]; //Iterated for each element in shipsSize and sets currShipsSize to the current element in the array of ships to be placed.
         bool placed = false; //Will be false until the currShip is placed on players board
 
@@ -213,7 +213,8 @@ void printWhitespace()  {
 }
 
 void PlayerTurn(int (&playerBoard)[BOARD_SIZE][BOARD_SIZE], int (&opponentBoard)[BOARD_SIZE][BOARD_SIZE], const string& playerName, const string& opponentName) {
-    int turnRow, turnColumn;
+    int currRow;
+    int currColumn;
 
     cout << "\n" << playerName << "'s Turn\n";
     cout << "------------------------------" << endl;
@@ -226,24 +227,24 @@ void PlayerTurn(int (&playerBoard)[BOARD_SIZE][BOARD_SIZE], int (&opponentBoard)
     bool validGuess = false; // Flag to ensure a valid square is chosen
     while (!validGuess) {
         cout << "Enter row number (0 - 9): ";
-        getValidCoordinate(turnRow); // Ensures valid input for row
+        getValidCoordinate(currRow); // Ensures valid input for row
 
         cout << "Enter column number (0 - 9): ";
-        getValidCoordinate(turnColumn); // Ensures valid input for column
+        getValidCoordinate(currColumn); // Ensures valid input for column
 
-        if (opponentBoard[turnRow][turnColumn] == 2 || opponentBoard[turnRow][turnColumn] == 3) {
+        if (opponentBoard[currRow][currColumn] == 2 || opponentBoard[currRow][currColumn] == 3) {
             cout << "You have already guessed this square. Please try again." << endl;
         } else {
             validGuess = true; // Valid square
         }
     }
 
-    if (opponentBoard[turnRow][turnColumn] == 0) {
+    if (opponentBoard[currRow][currColumn] == 0) {
         cout << "Miss!" << endl;
-        opponentBoard[turnRow][turnColumn] = 2; // Mark the miss on the opponent's board
-    } else if (opponentBoard[turnRow][turnColumn] == 1) {
+        opponentBoard[currRow][currColumn] = 2; // Mark the miss on the opponent's board
+    } else if (opponentBoard[currRow][currColumn] == 1) {
         cout << "Hit!" << endl;
-        opponentBoard[turnRow][turnColumn] = 3; // Mark the hit on the opponent's board
+        opponentBoard[currRow][currColumn] = 3; // Mark the hit on the opponent's board
     }
 
     // Check if the opponent has lost (no ships left)
